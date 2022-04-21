@@ -1,0 +1,60 @@
+<!--.p-3.mx-auto.text-center>h1.display-4{Mes Contacts}-->
+<div class="p-3 mx-auto text-center">
+    <h1 class="display-4">Mes Contacts</h1>
+</div>
+
+<!--.py-5.ng-light>.container>.row>.col>.card.shadow-sm>table.table>(thead>tr>th{$}*6)+tbody>tr>td{$}*6-->
+<div class="py-5 ng-light">
+    <div class="container">
+        <div class="row">
+            <div class="col">
+                <div class="card shadow-sm p-2">
+                    <table class="table">
+                        <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Prénom</th>
+                            <th>Nom</th>
+                            <th>Email</th>
+                            <th>Tel</th>
+                            <th>Actions</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {{#if contacts }}
+                            {{#each contacts}}
+                                <tr>
+                                    <td>{{ _id }}</td>
+                                    <td>{{ firstname }}</td>
+                                    <td>{{ lastname }}</td>
+                                    <td>{{ email }}</td>
+                                    <td>{{ tel }}</td>
+                                    <td>
+                                        <a class="btn btn-primary" href="#">
+                                            <i class="fas fa-eye"></i>
+                                        </a>
+                                        <a class="btn btn-warning" href="#">
+                                            <i class="fas fa-pen"></i>
+                                        </a>
+                                        <a class="btn btn-danger" href="#">
+                                            <i class="fas fa-trash"></i>
+                                        </a>
+                                    </td>
+                                </tr>
+                            {{/each}}
+                        {{else}}
+                            <tr>
+                                <td colspan="6">
+                                    <p class="text-center">
+                                        Pas de contact pour le moment.
+                                    </p>
+                                </td>
+                            </tr>
+                        {{/if}}
+                        </tbody>
+                    </table>
+                </div> <!-- /.card-shadow-sm -->
+            </div> <!-- /.col -->
+        </div> <!-- /.row -->
+    </div> <!-- /.container -->
+</div> <!-- /.py-5 -->
