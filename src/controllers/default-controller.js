@@ -5,6 +5,11 @@
  */
 const Contact = require('../models/contact-model');
 
+/**
+ * Importation du service vCard.
+ */
+const {generateVCard} = require('../services/vcard');
+
 
 /**
  * Import library QrCode / Vcard
@@ -45,14 +50,12 @@ exports.contacts = async (req, res) => {
 exports.contact = async (req, res) => {
     try {
         const contact = await Contact.findById(req.params.id).exec();
-        //create a new vCard
-        let vCard = vCardsJS();
-        vCard.firstName = contact.firstname;
-        vCard.lastName = contact.lastname;
-        vCard.email = contact.email;
-        vCard.cellPhone = contact.tel;
 
-        QRCode.toDataURL( vCard.getFormattedString(),function (err, url) {
+        // -- Génération de ma vCard via mon service
+        const vCard = generateVCard(contact);
+
+        // -- Génération du QrCode
+        QRCode.toDataURL( vCard,function (err, url) {
             res.render('contact', {
                 'contact': contact.toJSON(),
                 'url': url
