@@ -15,6 +15,7 @@ router.get('/contact/:id', defaultController.contact);
 // -- Ajouter, Editer, Supprimer un Contact
 router.get('/ajouter-un-contact', contactController.create_get);
 router.post('/ajouter-un-contact', contactController.create_post);
+router.get('/contact/:id/delete', contactController.delete);
 
 // -- Exportation du router avec les routes.
 module.exports = router;

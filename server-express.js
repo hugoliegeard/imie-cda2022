@@ -1,10 +1,9 @@
-
 /**
  * Chargement des variables d'ENV.
  * npm install dotenv
  */
 const dotenv = require('dotenv');
-dotenv.config({ path: '.env' });
+dotenv.config({path: '.env'});
 
 /**
  * Chargement du framework express
@@ -38,7 +37,7 @@ app.set('view engine', 'hbs');
  */
 const bodyParser = require('body-parser');
 app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({extended:false}));
+app.use(bodyParser.urlencoded({extended: false}));
 
 /**
  * Configuration de la connexion à MongoDB
@@ -46,6 +45,34 @@ app.use(bodyParser.urlencoded({extended:false}));
 const mongoose = require('mongoose');
 const mongoDbUri = process.env.MONGODB_URI;
 mongoose.connect(mongoDbUri);
+
+/**
+ * Configuration des sessions avec Express
+ * https://www.npmjs.com/package/express-session
+ * https://www.npmjs.com/package/cookie-parser
+ */
+const cookieParser = require('cookie-parser');
+const session = require('express-session');
+
+app.use(cookieParser());
+app.use(session({
+    secret: process.env.SESSION_SECRET,
+    resave: false,
+    saveUninitialized: false,
+    cookie: {secure: false}
+}));
+
+/**
+ * Configuration des notifications flash.
+ */
+app.use(((
+    req,
+    res,
+    next) => {
+    res.locals.flash = req.session.flash;
+    delete req.session.flash;
+    next();
+}));
 
 /**
  * Routes
@@ -57,7 +84,7 @@ app.use('/', appRoutes);
  * Démarrage du serveur et écoute des
  * connexions sur le port 3000.
  */
-app.listen(port,() => {
+app.listen(port, () => {
     console.log(`Serveur en ligne via 
     http://localhost:${port}/`);
     console.log(`CTRL + C pour stopper.`)

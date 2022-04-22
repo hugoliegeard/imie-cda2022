@@ -24,11 +24,48 @@ exports.create_post = async (req, res) => {
         // -- 2. Sauvegarde des données dans la base.
         const contact = await Contact.create(body);
         await contact.save();
+
+        // -- 3a. Notification Flash
+        req.session.flash = {
+            type: 'success',
+            message: 'Votre contact a bien été ajouté !'
+        };
+
+        // -- 3b. Redirection.
+        res.redirect(`/contact/${contact._id}`);
+
     } catch (err) {
-        console.log(err);
+
+        req.session.flash = {
+            type: 'danger',
+            message: `Une erreur est survenue : ${err}`
+        };
+
+        res.redirect(`/contacts`);
+
     }
 
-    // -- 3. Redirection.
-    res.redirect('/contacts');
-
 };
+
+/**
+ * Suppression d'un contact.
+ * @param req
+ * @param res
+ * @returns {Promise<void>}
+ */
+exports.delete = async (req, res) => {
+    try {
+        await Contact.findByIdAndDelete(req.params.id).exec();
+        req.session.flash = {
+            type: 'success',
+            message: 'Votre contact a bien été supprimé !'
+        };
+        res.redirect(`/contacts`);
+    } catch {
+        req.session.flash = {
+            type: 'danger',
+            message: `Une erreur est survenue : ${err}`
+        };
+        res.redirect(`/contacts`);
+    }
+}
