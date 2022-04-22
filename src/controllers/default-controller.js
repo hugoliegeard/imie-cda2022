@@ -34,7 +34,7 @@ exports.index = (req, res) => {
  */
 exports.contacts = async (req, res) => {
 
-    const contacts = await Contact.find();
+    const contacts = await Contact.find().exec();
     // console.log(contacts);
 
     res.render('contacts', {

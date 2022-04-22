@@ -96,7 +96,14 @@ app.use(((
  * Routes
  */
 const appRoutes = require('./src/routes/app-routes');
+const apiRoutes = require('./src/routes/api-routes');
 app.use('/', appRoutes);
+app.use('/api', apiRoutes);
+
+/** Gestion des erreurs 404 **/
+app.use((req, res) => {
+    res.status(404).render('error');
+});
 
 /**
  * Démarrage du serveur et écoute des
