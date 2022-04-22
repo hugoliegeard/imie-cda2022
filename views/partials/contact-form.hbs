@@ -1,4 +1,12 @@
 
+{{#if errors }}
+    <div class="alert alert-danger">
+        {{#each errors}}
+            <i class="fas fa-exclamation-triangle"></i> {{ msg }} <br>
+        {{/each}}
+    </div>
+{{/if}}
+
 
 <!-- ------------- ~ Prénom ~ -------------  -->
 <div class="form-group mt-2">
