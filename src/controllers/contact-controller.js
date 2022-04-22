@@ -23,7 +23,7 @@ exports.create_post = async (req, res) => {
 
     // -- 1b. Validation des données
     const errors = validationResult(req);
-    // console.log(errors);
+    console.log(errors);
 
     if (!errors.isEmpty()) {
 

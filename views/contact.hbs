@@ -8,9 +8,9 @@
                         <h1 class="display-5 fw-bold">{{firstname}} {{lastname}}</h1>
                         <p class="col-md-8 fs-4">{{ email }}</p>
                         <p class="col-md-8 fs-4">{{ tel }}</p>
-                        <button class="btn btn-warning btn-lg mt-2" type="button">Modifier le contact</button>
-                        <button class="btn btn-danger btn-lg mt-2" type="button">Suprimer le contact</button>
-                        <button class="btn btn-primary btn-lg mt-2" type="button">Retourner aux contacts</button>
+                        <a href="/contact/{{ _id }}/edit" class="btn btn-warning btn-lg mt-2">Modifier le contact</a>
+                        <a href="/contact/{{ _id }}/delete" class="btn btn-danger btn-lg mt-2">Supprimer le contact</a>
+                        <a href="/contacts" class="btn btn-primary btn-lg mt-2">Retourner aux contacts</a>
                     </div>
                 {{/with}}
                 <div class="container-fluid text-center">

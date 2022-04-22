@@ -20,11 +20,29 @@ const port = process.env.PORT || 3000;
  * Configuration du templating handlebar
  */
 const hbs = require('express-handlebars');
+const helpers = require('handlebars-helpers')();
+
+/**
+ * Permet de rechercher un param et sa valeur dans une collection
+ * @param collection
+ * @param param
+ * @param value
+ */
+helpers.ifIn = ( collection = [], param, value ) => {
+    for (let i = 0 ; i < collection.length ; i++) {
+        if( collection[i][param] === value ) {
+            return collection[i];
+        }
+    }
+    return false;
+}
+
 app.engine('hbs', hbs.engine({
     extname: 'hbs',
     defaultLayout: 'layout',
     layoutsDir: __dirname + '/views/layouts/',
     partialsDir: __dirname + '/views/partials/',
+    helpers: helpers
 }));
 
 app.set('views', __dirname + '/views');
